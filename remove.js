@@ -1,67 +1,130 @@
 console.log("remove 들어옴");
+console.log("제발onload");
+console.log(document.getElementById('A4').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').length);
 
 
-	console.log("제발onload");
-	console.log(document.getElementById('iframe1').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').length);
+/*
+iframes = document.getElementById('A4').contentWindow.document.getElementsByTagName("iframe")
+for(var i=0; i<iframes.length; i++){
+    console.log('element', i);
+    console.log('iframes[i]', iframes[i]);
+    if(iframes[i].id !== "A4"){
+    	iframes[i].parentNode.removeChild(iframes[i]);	
+    	//iframes[i].remove();
+    }
+}
+*/
+
+/*
+setTimeout(() => {
+	iframes = document.getElementsByTagName("iframe")
+	console.log('iframes', iframes)
+	console.log('setTimeOut 이후 adImage', document.getElementById("adImage"))
+	for(var i=0; i<iframes.length; i++){
+	    console.log('element', i);
+	    console.log('iframes[i]', iframes[i]);
+	    if(iframes[i].id !== "iframe1"){
+	    	iframes[i].parentNode.removeChild(iframes[i]);	    	
+	    }
 
 
-//document.onload = function() { setInterval(fn,10000)};
-//document.getElementById('iframe1').onload = function() { setInterval(fn,10000)};
-//document.getElementById('iframe1').contentWindow.document.onload = function() { setInterval(fn,10000)};
-//document.getElementById('iframe1').contentWindow.document.getElementsByTagName("*")[0].onload = function() { setInterval(fn,10000)};
-//document.getElementById('iframe1').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').onload = function() { setInterval(fn,10000)};
-
-
-//console.log(document.getElementById('iframe1').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').length);
 
 
 
-var iframeDocument = document.getElementById('iframe1').contentWindow.document;
-var bodyText = iframeDocument.getElementsByTagName("*")[0].getElementsByTagName('*');
+	    //iframes[i].remove();
+
+}
+}, 10000)*/
+
+
+
+//let iframeDocument = document.getElementById('iframe1').contentWindow.document;
+//let bodyText = iframeDocument.getElementsByTagName("*")[0].getElementsByTagName('*');
 console.log(bodyText.length);
 
 
-var tempText =[];
+let tempText =[];
 
 
-function removeFunction(e) {
-    tempText.push(iframeDocument);
+/*
+let frameArea = document.getElementById('iframe1');
+frameArea.addEventListener("click", function removeFunction(e) {
+				    tempText.push(document.getElementById('iframe1').contentWindow.document.documentElement.outerHTML);
+				    console.log(e.target.dataset.id);
+				    console.log("리무브실행되는중");
+					document.getElementById('iframe1').contentWindow.document.querySelector("[data-id='"+String(e.target.contentWindow.document.dataset.id)+"']").remove();
+				    return;
+				});
+*/
 
-    if(e.target.dataset.tagName == "iframe" && e.target.dataset.id != "iframe1"){
-    	iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").parentNode.removeChild(iframeDocument.getElementsByTagName("iframe"));
-    }else{
-    	iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").remove();
-    }
-    return;
-};
+let removedOne = [];
+let removedParent = [];
+let removedOnesNext = [];
+
+for (let i = 0; i < bodyText.length; i++) {
+    //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
+    //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
+    //console.log('element selected', document.getElementById('iframe1').contentWindow.document.querySelector("[data-id='"+String(i)+"']"))
+    if(document.getElementById('A4').contentWindow.document.querySelector("[data-id='"+String(i)+"']")){
+    document.getElementById('A4').contentWindow.document.querySelector("[data-id='"+String(i)+"']").addEventListener("click", function removeFunction(e) {
+				    tempText.push(document.getElementById('A4').contentWindow.document.documentElement);
+
+				    //console.log('i', i)
+				    //console.log('bodyText[i]', bodyText[i])
+				    console.log(e.target.dataset.id);
+
+				    // removedOne.push(e.target);
+				    // //console.log(removedOne);
+				    // removedOnesNext.push(e.target.nextSibling);
+				    // removedParent.push(e.target.parentNode);
+				    //console.log(removedParent);
 
 
-for (var i = 0; i < bodyText.length; i++) {
-    bodyText[i].setAttribute("data-id", i);
-    var bodyElement = [bodyText[i].tagName,bodyText[i].getAttribute('data-id')];
-    bodyTag.push(bodyElement);
-    console.log("에러에러에러");
-    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("click", removeFunction);
-    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
-    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
+				    e.stopPropagation();
 
+				    if (e.target) {
+				    	e.target.remove()
+				    }
+
+					// document.getElementById('iframe1').contentWindow.document.querySelector("[data-id='"+String(e.target.dataset.id)+"']").remove();
+				    return;
+				});
+	}
 }
 
 
+console.log('adImage', document.getElementById("adImage"))
 
-function mouseOver(e) {
-    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "lightblue";
-}
-
-function mouseOut(e) {
-    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "white";
-}
 
 //href disabled
-var a_total = iframeDocument.getElementsByTagName("a");
-for (var i = 0; i < a_total.length; i++) {
+let a_total = document.getElementById('A4').contentWindow.document.getElementsByTagName("a");
+for (let i = 0; i < a_total.length; i++) {
+	a_total[i].removeAttribute("href")
     a_total[i].setAttribute("onclick", "return false;");
 }
       // - Code to execute when all DOM content is loaded. 
       // - including fonts, images, etc.
+console.log('adImage', document.getElementById("adImage"))
 
+
+function undoState() {
+	document.getElementById('A4').contentWindow.document.open();
+    document.getElementById('A4').contentWindow.document.write(tempText.pop());
+    document.getElementById('A4').contentWindow.document.close();
+ 	//removedParent.pop().appendChild(removedOne.pop());
+/* 	if(removedOnesNext.pop()){
+ 		removedParent.pop().appendChild(removedOne.pop());
+ 	}
+ 	removedParent.pop().insertBefore(removedOne.pop(),removedOnesNext.pop());	*/
+    return;
+};
+
+// undo button
+document.getElementById('undoButton').addEventListener("click", undoState);
+
+
+/*document.getElementById('undoButton').onclick = function() {
+    iframeDocument.open();
+    iframeDocument.write(tempText.pop());
+    iframeDocument.close();
+}*/

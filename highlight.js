@@ -1,10 +1,12 @@
 console.log("hightlight들어옴");
 
+console.log('adImage', document.getElementById("adImage"))
 
 
-console.log(document.getElementById('iframe1').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').length);
-var iframeDocument = document.getElementById('iframe1').contentWindow.document;
-var bodyText = iframeDocument.getElementsByTagName("*")[0].getElementsByTagName('*');
+
+console.log(document.getElementById('A4').contentWindow.document.getElementsByTagName("*")[0].getElementsByTagName('*').length);
+let iframeDocument = document.getElementById('A4').contentWindow.document;
+let bodyText = iframeDocument.getElementsByTagName("*")[0].getElementsByTagName('*');
 console.log(bodyText);
 
 
@@ -28,7 +30,7 @@ if (iframeDocument.getElementsByClassName("end_ad")[0]) {
 
 
 /*
-var tempText =[];
+let tempText =[];
 
 function removeFunction(e) {
     tempText.push(iframeDocument);
@@ -37,16 +39,25 @@ function removeFunction(e) {
 };
 */
 
-var bodyTag = [];
+
+function mouseOver(e) {
+    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "lightblue";
+}
+
+function mouseOut(e) {
+    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "white";
+}
+
+let bodyTag = [];
 console.log(bodyText.length);
-for (var i = 0; i < bodyText.length; i++) {
+for (let i = 0; i < bodyText.length; i++) {
     bodyText[i].setAttribute("data-id", i);
-    var bodyElement = [bodyText[i].tagName,bodyText[i].getAttribute('data-id')];
+    let bodyElement = [bodyText[i].tagName,bodyText[i].getAttribute('data-id')];
     bodyTag.push(bodyElement);
     console.log("에러에러에러");
     //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("click", removeFunction);
-    //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
-    //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
+    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
+    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
 
 }
 
@@ -60,8 +71,8 @@ function mouseOut(e) {
 }
 
 //href disabled
-var a_total = iframeDocument.getElementsByTagName("a");
-for (var i = 0; i < a_total.length; i++) {
+let a_total = iframeDocument.getElementsByTagName("a");
+for (let i = 0; i < a_total.length; i++) {
     a_total[i].setAttribute("onclick", "return false;");
 }
       // - Code to execute when all DOM content is loaded. 
