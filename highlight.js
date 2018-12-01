@@ -41,25 +41,36 @@ function removeFunction(e) {
 
 
 function mouseOver(e) {
-    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "lightblue";
+    //e.target.style.backgroundColor = "lightblue";
+    let everyMouseOver = iframeDocument.getElementsByClassName("myPDFmouse");
+    for (var i=0; i<everyMouseOver.length; i++){
+        everyMouseOver[i].classList.remove("myPDFmouse");
+    }
+    e.target.classList.add("myPDFmouse");
+
+    //e.target.setAttribute("class","myPDFmouse");
 }
 
+/*
 function mouseOut(e) {
-    iframeDocument.querySelector("[data-id='"+String(e.target.dataset.id)+"']").style.backgroundColor = "white";
+    e.target.className += " myPDFmouse";
+
+    //e.target.style.backgroundColor = "white";
 }
+*/
 
 let bodyTag = [];
 console.log(bodyText.length);
-for (let i = 0; i < bodyText.length; i++) {
-    bodyText[i].setAttribute("data-id", i);
-    let bodyElement = [bodyText[i].tagName,bodyText[i].getAttribute('data-id')];
-    bodyTag.push(bodyElement);
+//for (let i = 0; i < bodyText.length; i++) {
+    //bodyText[i].setAttribute("data-id", i);
+    //let bodyElement = [bodyText[i].tagName,bodyText[i].getAttribute('data-id')];
+    //bodyTag.push(bodyElement);
     console.log("에러에러에러");
     //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("click", removeFunction);
-    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
-    iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
+    iframeDocument.addEventListener("mouseover", mouseOver);
+    //iframeDocument.addEventListener("mouseout", mouseOut);
 
-}
+//}
 
 /*
 function mouseOver(e) {

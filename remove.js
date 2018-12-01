@@ -61,17 +61,19 @@ let removedOne = [];
 let removedParent = [];
 let removedOnesNext = [];
 
-for (let i = 0; i < bodyText.length; i++) {
+//for (let i = 0; i < bodyText.length; i++) {
     //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseover", mouseOver);
     //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("mouseout", mouseOut);
     //console.log('element selected', document.getElementById('iframe1').contentWindow.document.querySelector("[data-id='"+String(i)+"']"))
-    if(document.getElementById('A4').contentWindow.document.querySelector("[data-id='"+String(i)+"']")){
-    document.getElementById('A4').contentWindow.document.querySelector("[data-id='"+String(i)+"']").addEventListener("click", function removeFunction(e) {
-				    tempText.push(document.getElementById('A4').contentWindow.document.documentElement);
+//    if(document.getElementById('A4').contentWindow.document.querySelector("[data-id='"+String(i)+"']")){
+
+function addEventListenerToIframe() {
+	document.getElementById('A4').contentWindow.document.addEventListener("click", function removeFunction(e) {
+				    tempText.push(document.getElementById('A4').contentWindow.document.documentElement.outerHTML);
 
 				    //console.log('i', i)
 				    //console.log('bodyText[i]', bodyText[i])
-				    console.log(e.target.dataset.id);
+				    // console.log(e.target.dataset.id);
 
 				    // removedOne.push(e.target);
 				    // //console.log(removedOne);
@@ -86,11 +88,16 @@ for (let i = 0; i < bodyText.length; i++) {
 				    	e.target.remove()
 				    }
 
+
 					// document.getElementById('iframe1').contentWindow.document.querySelector("[data-id='"+String(e.target.dataset.id)+"']").remove();
 				    return;
 				});
-	}
 }
+
+addEventListenerToIframe();
+
+//	}
+//}
 
 
 console.log('adImage', document.getElementById("adImage"))
@@ -111,6 +118,13 @@ function undoState() {
 	document.getElementById('A4').contentWindow.document.open();
     document.getElementById('A4').contentWindow.document.write(tempText.pop());
     document.getElementById('A4').contentWindow.document.close();
+
+
+    iframeDocument.addEventListener("mouseover", mouseOver);
+    iframeDocument.addEventListener("mouseout", mouseOut);
+
+    addEventListenerToIframe();
+
  	//removedParent.pop().appendChild(removedOne.pop());
 /* 	if(removedOnesNext.pop()){
  		removedParent.pop().appendChild(removedOne.pop());
@@ -119,9 +133,16 @@ function undoState() {
     return;
 };
 
+function printIframe() {
+	var frm = document.getElementById("A4").contentWindow;
+    frm.focus();// focus on contentWindow is needed on some ie versions
+    frm.print();
+    return false;
+};
+
 // undo button
 document.getElementById('undoButton').addEventListener("click", undoState);
-
+document.getElementById('printButton').addEventListener("click", printIframe);
 
 /*document.getElementById('undoButton').onclick = function() {
     iframeDocument.open();

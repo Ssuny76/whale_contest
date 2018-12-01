@@ -48,16 +48,16 @@ let bodyIn = document.body.outerHTML;
 
 // wrapperDiv : black
 wrapperDiv = document.createElement("div");
-wrapperDiv.setAttribute("style","position: absolute; \
+wrapperDiv.setAttribute("style","position: fixed; \
                                 left: 0px; top: 0px;\
                                 background-color: rgb(0, 0, 0); opacity: 1; \
-                                z-index: 2000; height: 50cm; width: 100%;overflow: hidden;");
+                                z-index: 2000; height: 100vh; width: 100vw;overflow: hidden;");
 wrapperDiv.setAttribute("id","div1");
 
 
 // 안쪽 div 영역 (grey)
 boardDiv = document.createElement("div");
-boardDiv.setAttribute("style", "position: relative; \
+boardDiv.setAttribute("style", "position: fixed; \
                                 background: grey;\
                                 display: block;\
                                 margin: 0 auto;\
@@ -73,8 +73,16 @@ undoButton.setAttribute("style", "background-color : #4CAF50;\
                                 position: absolute; \
                                 top: 1cm; right : 1cm; ");
 
-// iframe 감싸는 div
+// print button
+printButton = document.createElement("button");
+printButton.innerHTML = "PRINT";
+printButton.setAttribute("id", "printButton");
+printButton.setAttribute("style", "background-color : #4CAF50;\
+                                position: absolute; \
+                                top: 2cm; right : 1cm; ");
 
+
+// iframe
 A4Element = document.createElement("iframe");
 //iframeElement.setAttribute("style","width: 100%; height: 100%;");
 A4Element.setAttribute("style", "background: white;\
@@ -91,15 +99,22 @@ A4Element.setAttribute("id","A4");
 
 
 boardDiv.appendChild(undoButton);
+boardDiv.appendChild(printButton);
 boardDiv.appendChild(A4Element);
 
 wrapperDiv.appendChild(boardDiv);
 document.body.appendChild(wrapperDiv);
 
+// class style들 지정
+
+let mouseOverStyle = "<style>\
+                        .myPDFmouse{\
+                            background-color: lightblue;\
+                        }\
+                        </style>";
 
 
-
-document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+headIn+"</head>"+bodyIn+"</html>");
+document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+mouseOverStyle+"</head>"+bodyIn+"</html>");
 // "<script type='text/plain'>"
 //document.getElementById('A4').innerHTML =bodyIn;
 
