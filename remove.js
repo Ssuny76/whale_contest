@@ -43,7 +43,7 @@ setTimeout(() => {
 console.log(bodyText.length);
 
 
-let tempText =[];
+let tempText = [];
 
 
 /*
@@ -115,9 +115,13 @@ console.log('adImage', document.getElementById("adImage"))
 
 
 function undoState() {
-	document.getElementById('A4').contentWindow.document.open();
-    document.getElementById('A4').contentWindow.document.write(tempText.pop());
-    document.getElementById('A4').contentWindow.document.close();
+
+	if(tempText.length != 0){
+		document.getElementById('A4').contentWindow.document.open();
+		document.getElementById('A4').contentWindow.document.write(tempText.pop());
+		document.getElementById('A4').contentWindow.document.close();
+	}
+    
 
 
     iframeDocument.addEventListener("mouseover", mouseOver);
@@ -140,9 +144,36 @@ function printIframe() {
     return false;
 };
 
+
+function pdfIframe() {
+	var pdf = new jsPDF('p', 'pt', 'letter');
+	margins = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        width: 0
+    };
+    specialElementHandlers = {
+        '#bypassme': function (element, renderer) {
+            return true
+        }
+    };
+  pdf.fromHTML(document.getElementById('A4').contentWindow.document.getElementsByTagName('h3')[1]);/*, 
+  	0, 
+  	0, 
+  	{'width': margins.width,'elementHandlers': specialElementHandlers},
+	function (dispose) {
+        pdf.save('Test.pdf');
+    }, 
+    margins);*/
+   pdf.save('test.pdf');
+}
+
 // undo button
 document.getElementById('undoButton').addEventListener("click", undoState);
 document.getElementById('printButton').addEventListener("click", printIframe);
+document.getElementById('pdfButton').addEventListener("click", pdfIframe);
+
 
 /*document.getElementById('undoButton').onclick = function() {
     iframeDocument.open();

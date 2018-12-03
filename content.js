@@ -58,6 +58,8 @@ wrapperDiv.setAttribute("id","div1");
 // 안쪽 div 영역 (grey)
 boardDiv = document.createElement("div");
 boardDiv.setAttribute("style", "position: fixed; \
+                                align-items: flex-end;\
+                                display: flex;\
                                 background: grey;\
                                 display: block;\
                                 margin: 0 auto;\
@@ -65,6 +67,7 @@ boardDiv.setAttribute("style", "position: fixed; \
                                 height:40cm;");
 boardDiv.setAttribute("id","div2");
 
+/*
 // undo button
 undoButton = document.createElement("button");
 undoButton.innerHTML = "UNDO";
@@ -72,15 +75,62 @@ undoButton.setAttribute("id", "undoButton");
 undoButton.setAttribute("style", "background-color : #4CAF50;\
                                 position: absolute; \
                                 top: 1cm; right : 1cm; ");
+*/
 
-// print button
-printButton = document.createElement("button");
+
+
+fontSpan = document.createElement("span");
+fontSpan.innerHTML = "FONT";
+//fontSpan.setAttribute("style", "position: absolute;");
+
+imageSpan = document.createElement("span");
+imageSpan.innerHTML = "IMAGE";
+//imageSpan.setAttribute("style", "position: absolute;");
+
+
+topDiv = document.createElement("div");
+topDiv.setAttribute("id", "topDiv");
+topDiv.setAttribute("style", "background-color : #8A2BE2;\
+                                align-content: flex-start; \
+                                display: flex;\
+                                height: 3cm;");
+
+topDiv.appendChild(fontSpan);
+topDiv.appendChild(imageSpan);
+
+undoButton = document.createElement("span");
+undoButton.setAttribute("id", "undoButton");
+undoButton.innerHTML = "UNDO";
+//undoButton.setAttribute("style", "position: absolute;");
+
+redoButton = document.createElement("span");
+redoButton.setAttribute("id", "redoButton");
+redoButton.innerHTML = "REDO";
+//redoButton.setAttribute("style", "position: absolute;");
+
+printButton = document.createElement("span");
 printButton.innerHTML = "PRINT";
 printButton.setAttribute("id", "printButton");
-printButton.setAttribute("style", "background-color : #4CAF50;\
-                                position: absolute; \
-                                top: 2cm; right : 1cm; ");
+printButton.setAttribute("style", "background-color : #4CAF50;");
 
+pdfButton = document.createElement("span");
+pdfButton.innerHTML = "PDF";
+pdfButton.setAttribute("id", "pdfButton");
+pdfButton.setAttribute("style", "background-color : #4CAF50;");
+
+sideDiv = document.createElement("div");
+sideDiv.setAttribute("id", "sideDiv");
+sideDiv.setAttribute("style", "background-color : #8A2BE2;\
+                                float:right;\
+                                display: flex;\
+                                flex-direction : column;\
+                                width: 3cm;\
+                                height:100%");
+
+sideDiv.appendChild(undoButton);
+sideDiv.appendChild(redoButton);
+sideDiv.appendChild(printButton);
+sideDiv.appendChild(pdfButton);
 
 // iframe
 A4Element = document.createElement("iframe");
@@ -98,14 +148,28 @@ A4Element.setAttribute("style", "background: white;\
 A4Element.setAttribute("id","A4");
 
 
-boardDiv.appendChild(undoButton);
-boardDiv.appendChild(printButton);
+
+boardDiv.appendChild(topDiv);
+boardDiv.appendChild(sideDiv);
 boardDiv.appendChild(A4Element);
 
 wrapperDiv.appendChild(boardDiv);
 document.body.appendChild(wrapperDiv);
 
 // class style들 지정
+
+
+let styles = "<style>\
+                        .dFlex{\
+                            background-color: lightblue;\
+                        }\
+                        .greyColor{\
+                            background-color: grey;\
+                        }\
+                        .whiteColor{\
+                            background-color: white;\
+                        }\
+                        </style>";
 
 let mouseOverStyle = "<style>\
                         .myPDFmouse{\
@@ -114,7 +178,9 @@ let mouseOverStyle = "<style>\
                         </style>";
 
 
-document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+mouseOverStyle+"</head>"+bodyIn+"</html>");
+let jspdf = "<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js'></script>";
+document.head.innerHTML += jspdf ;
+document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+mouseOverStyle+styles+jspdf+"</head>"+bodyIn+"</html>");
 // "<script type='text/plain'>"
 //document.getElementById('A4').innerHTML =bodyIn;
 
