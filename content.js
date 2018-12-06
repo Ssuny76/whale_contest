@@ -1,27 +1,5 @@
 console.log('adImage', document.getElementById("adImage"))
 
-/*
-setTimeout(() => {
-    iframes = document.getElementsByTagName("iframe")
-    console.log('iframes', iframes)
-    console.log('setTimeOut 이후 adImage', document.getElementById("adImage"))
-    for(var i=0; i<iframes.length; i++){
-        console.log('element', i);
-        console.log('iframes[i]', iframes[i]);
-        if(iframes[i].id !== "iframe1"){
-            iframes[i].parentNode.removeChild(iframes[i]);          
-        }
-
-
-
-
-
-        //iframes[i].remove();
-
-}
-}, 10000)
-*/
-
 
 //console.log(document.body.innerHTML);
 /*
@@ -44,7 +22,9 @@ for(let i = 0; i < iframes.length; i += 1) {
 // document.getElementById("daArticle_300250").remove();
 
 let headIn = document.head.innerHTML;
-let bodyIn = document.body.outerHTML;
+//let bodyIn = document.body.outerHTML;
+let bodyIn = document.getElementById("main_content").innerHTML;
+
 
 // wrapperDiv : black
 wrapperDiv = document.createElement("div");
@@ -81,12 +61,12 @@ undoButton.setAttribute("style", "background-color : #4CAF50;\
 
 
 
-fontSpan = document.createElement("span");
+fontSpan = document.createElement("button");
 fontSpan.innerHTML = "FONT";
 fontSpan.className = "bouncy";
-fontSpan.className += "w3-dropdown-content";
-fontSpan.className += "w3-bar-block";
-fontSpan.className += "w3-border";
+fontSpan.className += " w3-dropdown-content";
+fontSpan.className += " w3-bar-block";
+fontSpan.className += " w3-border";
 
 fontOp1 = document.createElement("a");
 fontOp1.setAttribute("href", "#");
@@ -107,7 +87,7 @@ fontOp3.className = "w3-bar-item";
 fontOp3.className += " w3-button";
 
 
-imageSpan = document.createElement("span");
+imageSpan = document.createElement("button");
 imageSpan.innerHTML = "IMAGE";
 imageSpan.className = "bouncy";
 //imageSpan.setAttribute("style", "position: absolute;");
@@ -121,7 +101,7 @@ topDiv.setAttribute("style", "background: transparent;\
                                 height: 3cm;");
 
 
-undoButton = document.createElement("span");
+undoButton = document.createElement("button");
 undoButton.setAttribute("id", "undoButton");
 undoButton.innerHTML = "UNDO";
 undoButton.className = "bouncy";
@@ -129,18 +109,18 @@ undoButton.className = "bouncy";
 
 //undoButton.setAttribute("style", "position: absolute;");
 
-redoButton = document.createElement("span");
+redoButton = document.createElement("button");
 redoButton.setAttribute("id", "redoButton");
 redoButton.className = "bouncy";
 redoButton.innerHTML = "REDO";
 //redoButton.setAttribute("style", "position: absolute;");
 
-printButton = document.createElement("span");
+printButton = document.createElement("button");
 printButton.innerHTML = "PRINT";
 printButton.setAttribute("id", "printButton");
 printButton.className = "bouncy";
 
-pdfButton = document.createElement("span");
+pdfButton = document.createElement("button");
 pdfButton.innerHTML = "PDF";
 pdfButton.setAttribute("id", "pdfButton");
 pdfButton.className = "bouncy";
@@ -166,8 +146,7 @@ A4Element = document.createElement("iframe");
 A4Element.setAttribute("style", "background: white;\
                                       position: absolute; \
                                       display: block;\
-                                      padding: 2cm;\
-                                      margin-bottom: 0.5cm;\
+                                      padding : 7vh 7vh 7vh 7vh;\
                                       box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);\
                                       left: 50%;\
                                       top: 50%;\
@@ -177,6 +156,8 @@ A4Element.setAttribute("style", "background: white;\
                                       transform: translate(-50%, -50%);\
                                       overflow: hidden;\
                                       width:52.5vh ; height:74.25vh"); 
+//21:29.7:4.5:5.2 = 52.5:74.25:11.25:13
+
 A4Element.setAttribute("id","A4");
 
 
@@ -192,15 +173,6 @@ document.body.appendChild(wrapperDiv);
 
 
 let styles = "<style>\
-                        .dFlex{\
-                            background-color: lightblue;\
-                        }\
-                        .greyColor{\
-                            background-color: grey;\
-                        }\
-                        .whiteColor{\
-                            background-color: white;\
-                        }\
                         p{\
                             font-size: 0.75rem;\
                         }\
@@ -210,7 +182,7 @@ let styles = "<style>\
                         </style>";
 
 let panelStyle = "<style>\
-                        .bouncy{\
+                        .button{\
                          display:inline-block;\
                          padding:0.35em 1.2em;\
                          border:0.1em solid #FFFFFF;\
@@ -220,19 +192,14 @@ let panelStyle = "<style>\
                          text-decoration:none;\
                          font-family:'Roboto',sans-serif;\
                          font-weight:300;\
-                         color:#FFFFFF !important;\
+                         color:#FFFFFF;\
                          text-align:center;\
-                         transition: all 0.2s;\
+                         -webkit-transition-duration: 0.4s; \
+                         transition-duration: 0.4s;\
                         }\
-                        .bouncy:hover{\
+                        .button:hover{\
                          color:#000000;\
                          background-color:#FFFFFF;\
-                        }\
-                        @media all and (max-width:30em){\
-                         .bouncy{\
-                          display:block;\
-                          margin:0.4em auto;\
-                         }\
                         }\
                         </style>"
 
@@ -249,10 +216,12 @@ let jspdf = "<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jsp
 //document.head.innerHTML += utf8;
 
 
-document.head.innerHTML += panelStyle;
 
 
-document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+jspdf+ utf8+mouseOverStyle+"</head>"+bodyIn+"</html>");
+
+document.getElementById('A4').contentWindow.document.write("<html>"+"<head>"+jspdf+ utf8+mouseOverStyle+"</head>"+bodyIn+panelStyle+"</html>");
+
+//document.body.innerHTML += panelStyle;
 // "<script type='text/plain'>"
 //document.getElementById('A4').innerHTML =bodyIn;
 
