@@ -51,13 +51,17 @@ function mouseOver(e) {
     //e.target.setAttribute("class","myPDFmouse");
 }
 
-/*
-function mouseOut(e) {
-    e.target.className += " myPDFmouse";
 
+function mouseOut(e) {
+    if(iframeDocument.getElementsByClassName("myPDFmouse")){
+        let everyMouseOver = iframeDocument.getElementsByClassName("myPDFmouse");
+        for (var i=0; i<everyMouseOver.length; i++){
+            everyMouseOver[i].classList.remove("myPDFmouse");
+        }
     //e.target.style.backgroundColor = "white";
+    }
 }
-*/
+
 
 let bodyTag = [];
 console.log(bodyText.length);
@@ -68,7 +72,7 @@ console.log(bodyText.length);
     console.log("에러에러에러");
     //iframeDocument.querySelector("[data-id='"+String(i)+"']").addEventListener("click", removeFunction);
     iframeDocument.addEventListener("mouseover", mouseOver);
-    //iframeDocument.addEventListener("mouseout", mouseOut);
+    iframeDocument.addEventListener("mouseout", mouseOut);
 
 //}
 

@@ -145,34 +145,54 @@ function printIframe() {
 };
 
 
+
+// function pdfIframe() {
+// 	var pdf = new jsPDF('p', 'pt', 'a4');
+// 	margins = {
+//         top: 0,
+//         bottom: 0,
+//         left: 0,
+//         width: 0
+//     };
+//     specialElementHandlers = {
+//         '#bypassme': function (element, renderer) {
+//             return true
+//         }
+//     };
+//   pdf.fromHTML(getFrameContents());/*, 
+//   	0, 
+//   	0, 
+//   	{'width': margins.width,'elementHandlers': specialElementHandlers},
+// 	function (dispose) {
+//         pdf.save('Test.pdf');
+//     }, 
+//     margins);*/
+//    pdf.save('test.pdf');
+// }
+
 function pdfIframe() {
-	var pdf = new jsPDF('p', 'pt', 'letter');
-	margins = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        width: 0
-    };
-    specialElementHandlers = {
-        '#bypassme': function (element, renderer) {
-            return true
-        }
-    };
-  pdf.fromHTML(document.getElementById('A4').contentWindow.document.getElementsByTagName('h3')[1]);/*, 
-  	0, 
-  	0, 
-  	{'width': margins.width,'elementHandlers': specialElementHandlers},
-	function (dispose) {
-        pdf.save('Test.pdf');
-    }, 
-    margins);*/
-   pdf.save('test.pdf');
+	printIframe();
+	let waitPdf = function(){
+		console.log("waitPdf들어옴")
+		document.getElementById("open-pdf-in-preview-link").click();
+	}
+setTimeout(waitPdf,10);
+}
+
+function fontChange() {
+    var x = document.getElementById("Demo");
+    if (x.className.indexOf("w3-show") == -1) {  
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
 }
 
 // undo button
 document.getElementById('undoButton').addEventListener("click", undoState);
 document.getElementById('printButton').addEventListener("click", printIframe);
 document.getElementById('pdfButton').addEventListener("click", pdfIframe);
+//document.getElementById('fontSpan').addEventListener("click", fontChange);
 
 
 /*document.getElementById('undoButton').onclick = function() {
